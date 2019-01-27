@@ -1,4 +1,4 @@
-﻿namespace Ralymp.Models
+﻿namespace Ralymp.Models.DatabaseTypes
 {
     public class Subject
     {
