@@ -14,18 +14,13 @@ namespace Ralymp.Tools
         public static StudentRateRow[] GetStudentRateRow(int count)
         {
             return Enumerable.Range(0, count)
-                .Select(_ => GetStudentRateRow())
+                .Select(_ => new StudentRateRow
+                {
+                    SchoolTitle = CreateRandomString(),
+                    Participation = CreateParticipation(Random.Next(10)),
+                    StudentName = CreateRandomString()
+                })
                 .ToArray();
-        }
-
-        public static StudentRateRow GetStudentRateRow()
-        {
-            return new StudentRateRow()
-            {
-                SchoolTitle = CreateRandomString(),
-                Participation = CreateParticipation(Random.Next(10)),
-                StudentName = CreateRandomString()
-            };
         }
 
         private static StudentParticipation[] CreateParticipation(int count)
@@ -33,6 +28,31 @@ namespace Ralymp.Tools
             return Enumerable.Range(0, count)
                 .Select(_ => new StudentParticipation
                 {
+                    Place = Random.Next().ToString(),
+                    SubjectName = CreateRandomString(),
+                    Year = CreateRandomString()
+                })
+                .ToArray();
+        }
+
+        public static TeacherRateRow[] GetTeacherRateRow(int count)
+        {
+            return Enumerable.Range(0, count)
+                .Select(_ => new TeacherRateRow
+                {
+                    SchoolTitle = CreateRandomString(),
+                    TeacherName = CreateRandomString(),
+                    Participations = CreateTeacherParticipation(Random.Next(10))
+                })
+                .ToArray();
+        }
+
+        private static TeacherParticipation[] CreateTeacherParticipation(int count)
+        {
+            return Enumerable.Range(0, count)
+                .Select(_ => new TeacherParticipation()
+                {
+                    StudentName = CreateRandomString(),
                     Place = Random.Next().ToString(),
                     SubjectName = CreateRandomString(),
                     Year = CreateRandomString()
