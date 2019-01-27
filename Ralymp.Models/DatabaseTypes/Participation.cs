@@ -1,8 +1,11 @@
-﻿namespace Ralymp.Models
+﻿using Ralymp.Models.InterimTypes;
+
+namespace Ralymp.Models.DatabaseTypes
 {
     public class Participation
     {
-        //TODO: add Id?
+        public int Id { get; set; }
+
         public int Place { get; set; }
         public OlympLevel Level { get; set; }
 

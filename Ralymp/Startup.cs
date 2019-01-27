@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ralymp.DataAccessLayer;
 
 namespace Ralymp
 {
@@ -26,6 +27,8 @@ namespace Ralymp
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddDbContext<RalympDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,4 @@
-﻿namespace Ralymp.Models
+﻿namespace Ralymp.Models.InterimTypes
 {
     public enum OlympLevel
     {
