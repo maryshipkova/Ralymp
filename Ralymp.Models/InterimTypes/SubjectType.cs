@@ -1,4 +1,4 @@
-﻿namespace Ralymp.Models.DatabaseTypes
+﻿namespace Ralymp.Models.InterimTypes
 {
     public enum SubjectType
     {

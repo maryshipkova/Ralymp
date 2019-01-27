@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ralymp.Models.InterimTypes
+﻿namespace Ralymp.Models.InterimTypes
 {
     public class StudentParticipation
     {
