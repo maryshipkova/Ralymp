@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
 import {Menu} from 'semantic-ui-react'
-// import '../semantic/src/definitiions/semantic.min.css'
-export default class Header extends Component {
-    state = {activeItem: 'home'};
+import {Link} from 'react-router-dom'
+
+type Props = {};
+type State = { activeItem: string };
+export default class Header extends Component<Props, State> {
+    state = {activeItem: ''};
 
     handleItemClick = (event: React.MouseEvent<HTMLElement>, {name}: any) => this.setState({activeItem: name});
 
@@ -12,29 +15,51 @@ export default class Header extends Component {
         return (
 
             <Menu pointing secondary>
-                <Menu.Item name='home' active={activeItem === 'home'}
-                           onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                    name='messages'
-                    active={activeItem === 'messages'}
-                    onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                    name='friends'
-                    active={activeItem === 'friends'}
-                    onClick={this.handleItemClick}
-                />
-                <Menu.Menu position='right'>
+                <Link to='/home'>
                     <Menu.Item
-                        name='logout'
-                        active={activeItem === 'logout'}
+                        name='home'
+                        active={activeItem === 'home'}
                         onClick={this.handleItemClick}
                     />
+                </Link>
+                <Link to='/school'>
+                    <Menu.Item
+                        name='school'
+                        active={activeItem === 'school'}
+                        onClick={this.handleItemClick}
+                    />
+                </Link>
+                <Link to='/teacher'>
+                    <Menu.Item
+                        name='teacher'
+                        active={activeItem === 'teacher'}
+                        onClick={this.handleItemClick}
+                    />
+                </Link>
+                <Link to='/student'><Menu.Item
+                    name='student'
+                    active={activeItem === 'student'}
+                    onClick={this.handleItemClick}
+                />
+                </Link>
+                <Link to='/subject'>
+                    <Menu.Item
+                        name='subject'
+                        active={activeItem === 'subject'}
+                        onClick={this.handleItemClick}
+                    />
+                </Link>
+
+                <Menu.Menu position='right'>
+                    <Link to='/login'>
+                        <Menu.Item
+                            name='login'
+                            active={activeItem === 'login'}
+                            onClick={this.handleItemClick}
+                        />
+                    </Link>
                 </Menu.Menu>
             </Menu>
-
-
         )
     }
 }
