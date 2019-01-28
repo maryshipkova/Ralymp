@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ralymp.DataAccessLayer;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Ralymp
 {
@@ -29,6 +30,11 @@ namespace Ralymp
             });
 
             services.AddDbContext<RalympDbContext>();
+
+            services.AddSwaggerGen(configuration =>
+            {
+                configuration.SwaggerDoc("v1", new Info { Title = "Testing API doc", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +54,13 @@ namespace Ralymp
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(configuration =>
+            {
+                configuration.SwaggerEndpoint("/swagger/v1/swagger.json", "Testing API doc");
+            });
 
             app.UseMvc(routes =>
             {
