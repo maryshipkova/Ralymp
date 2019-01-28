@@ -7,7 +7,7 @@ namespace Ralymp.DataAccessLayer
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=ralymp.db");
+            //optionsBuilder.UseSqlite("Data Source=ralymp.db");
         }
 
         public DbSet<Participation> Participations { get; set; }
