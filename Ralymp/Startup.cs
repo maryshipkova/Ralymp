@@ -24,6 +24,15 @@ namespace Ralymp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //TODO: Temp fix for CORS
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+            {
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the React files will be served from this directory
@@ -43,16 +52,15 @@ namespace Ralymp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //TODO: Temp fix for CORS
+            app.UseCors("CorsPolicy");
+
             app.UseExceptionHandler(errorApp =>
             {
                 errorApp.Run(async context =>
                 {
                     var errorFeature = context.Features.Get<IExceptionHandlerFeature>();
                     var exception = errorFeature.Error;
-
-                    // the IsTrusted() extension method doesn't exist and
-                    // you should implement your own as you may want to interpret it differently
-                    // i.e. based on the current principal
 
                     var problemDetails = new ProblemDetails
                     {
@@ -71,8 +79,6 @@ namespace Ralymp
                         problemDetails.Title = "An unexpected error occurred!";
                         problemDetails.Status = 500;
                     }
-
-                    // log the exception etc..
 
                     context.Response.StatusCode = problemDetails.Status.Value;
                 });
