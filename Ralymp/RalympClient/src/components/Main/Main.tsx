@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './main.scss';
 import {Switch, Route} from 'react-router-dom'
 import Rating from "../Rating/Rating";
 import Home from "../Home/Home";

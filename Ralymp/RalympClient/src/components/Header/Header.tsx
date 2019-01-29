@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import './header.scss';
 import {Menu} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
@@ -15,6 +16,7 @@ export default class Header extends Component<Props, State> {
         const navColor = 'violet';
 
         return (
+            <header className='Header'>
             <Menu inverted>
                 {navItems.map(item => (
                     <Link to={`/${item}`}>
@@ -28,6 +30,7 @@ export default class Header extends Component<Props, State> {
                 ))}
 
             </Menu>
+            </header>
         )
     }
 }

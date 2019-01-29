@@ -14,7 +14,7 @@
     ],
     "quotes": [
       "warn",
-      "double"
+      "single"
     ]
   }
 }

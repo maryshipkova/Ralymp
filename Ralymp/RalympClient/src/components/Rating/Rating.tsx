@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import './rating.scss';
 
 export default class Rating extends Component {
     render() {
         return (
             <section className="Rating">
-                <h2>coming soon</h2>
+
             </section>
         );
     }
