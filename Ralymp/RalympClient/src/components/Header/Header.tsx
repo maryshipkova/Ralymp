@@ -49,16 +49,6 @@ export default class Header extends Component<Props, State> {
                         onClick={this.handleItemClick}
                     />
                 </Link>
-
-                <Menu.Menu position='right'>
-                    <Link to='/login'>
-                        <Menu.Item
-                            name='login'
-                            active={activeItem === 'login'}
-                            onClick={this.handleItemClick}
-                        />
-                    </Link>
-                </Menu.Menu>
             </Menu>
         )
     }
