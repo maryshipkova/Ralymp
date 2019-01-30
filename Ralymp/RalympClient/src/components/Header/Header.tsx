@@ -21,7 +21,7 @@ export default class Header extends Component<Props, State> {
             <header className='Header'>
                 <Menu inverted>
                     {navItems.map(item => (
-                        <Link to={`/${item}`}>
+                        <Link to={`/${item}`} key={item}>
                             <Menu.Item
                                 name={item}
                                 active={activeItem === item}
