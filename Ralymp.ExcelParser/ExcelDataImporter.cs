@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using ExcelDataReader;
+using Ralymp.Models.InterimTypes;
 
 namespace Ralymp.ExcelParser
 {
@@ -49,17 +50,17 @@ namespace Ralymp.ExcelParser
 
         private static ParticipationRow Convertor(IExcelDataReader reader)
         {
-            //TODO: Parse to string or get course number from string
-            bool isCorrectForm = int.TryParse(reader[2].ToString(), out int form);
+            bool isParsed = bool.TryParse(reader[6]?.ToString(), out bool isMan);
 
             return new ParticipationRow
             {
                 StudentName = reader.GetString(0),
                 School = reader[1].ToString(),
-                Form = isCorrectForm ? form : 1,
+                Form = reader[2].ToString(),
                 Teacher = reader.GetString(3),
                 Subject = reader.GetString(4),
-                Place = int.Parse(reader[5].ToString())
+                Place = int.Parse(reader[5].ToString()),
+                SubjectType = isParsed && isMan ? SubjectType.Man : SubjectType.Olymp
             };
         }
     }
