@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ralymp.Models\Ralymp.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="winner-list-16.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

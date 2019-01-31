@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Ralymp.Models.DatabaseTypes;
+using Ralymp.Models.InterimTypes;
 
 namespace Ralymp.ExcelParser
 {
@@ -9,9 +11,11 @@ namespace Ralymp.ExcelParser
             List<ParticipationRow> winner16 = ExcelDataImporter.GetResult16();
             List<ParticipationRow> winner17 = ExcelDataImporter.GetResult17();
 
-            var generator = new IdentifierGenerator();
-            generator.ExtentData(winner16);
-            generator.ExtentData(winner17);
+            var infoGenerator = new DatabaseInfoGenerator();
+            infoGenerator.AddData(winner16, 1, OlympLevel.City);
+            infoGenerator.AddData(winner17, 2, OlympLevel.City);
+
+            List<Participation> participations = infoGenerator.GetParticipations();
         }
     }
 }
