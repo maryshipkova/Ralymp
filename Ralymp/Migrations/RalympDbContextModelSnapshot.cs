@@ -15,7 +15,7 @@ namespace Ralymp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -69,15 +69,11 @@ namespace Ralymp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FirstName");
-
                     b.Property<int>("GraduationYear");
 
                     b.Property<int?>("SchoolId");
 
-                    b.Property<string>("SecondName");
-
-                    b.Property<string>("ThirdName");
+                    b.Property<string>("StudentName");
 
                     b.HasKey("Id");
 
@@ -107,17 +103,9 @@ namespace Ralymp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FirstName");
-
-                    b.Property<int?>("SchoolId");
-
-                    b.Property<string>("SecondName");
-
-                    b.Property<string>("ThirdName");
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("Teacher");
                 });
@@ -155,13 +143,6 @@ namespace Ralymp.Migrations
                 });
 
             modelBuilder.Entity("Ralymp.Models.DatabaseTypes.Student", b =>
-                {
-                    b.HasOne("Ralymp.Models.DatabaseTypes.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId");
-                });
-
-            modelBuilder.Entity("Ralymp.Models.DatabaseTypes.Teacher", b =>
                 {
                     b.HasOne("Ralymp.Models.DatabaseTypes.School", "School")
                         .WithMany()

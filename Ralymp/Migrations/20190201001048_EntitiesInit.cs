@@ -35,6 +35,19 @@ namespace Ralymp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Teacher",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teacher", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "YearInfo",
                 columns: table => new
                 {
@@ -53,9 +66,7 @@ namespace Ralymp.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: true),
-                    SecondName = table.Column<string>(nullable: true),
-                    ThirdName = table.Column<string>(nullable: true),
+                    StudentName = table.Column<string>(nullable: true),
                     GraduationYear = table.Column<int>(nullable: false),
                     SchoolId = table.Column<int>(nullable: true)
                 },
@@ -64,28 +75,6 @@ namespace Ralymp.Migrations
                     table.PrimaryKey("PK_Student", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Student_School_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "School",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Teacher",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: true),
-                    SecondName = table.Column<string>(nullable: true),
-                    ThirdName = table.Column<string>(nullable: true),
-                    SchoolId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teacher", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Teacher_School_SchoolId",
                         column: x => x.SchoolId,
                         principalTable: "School",
                         principalColumn: "Id",
@@ -157,11 +146,6 @@ namespace Ralymp.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Student_SchoolId",
                 table: "Student",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Teacher_SchoolId",
-                table: "Teacher",
                 column: "SchoolId");
         }
 
