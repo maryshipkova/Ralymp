@@ -4,16 +4,16 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 
 type Props = {};
-type State = { activeNavItem: string };
+type State = { activePage: string };
 export default class App extends Component<Props, State> {
-    state = {activeNavItem: 'home' };
+    state = {activePage: 'home' };
 
-    onNavItemChanged = (navItem:string) =>{this.setState({activeNavItem : navItem})};
+    onNavItemChanged = (navItem:string) =>{this.setState({activePage : navItem})};
     render() {
         return (
             <div className="App">
-                <Header activeItem={this.state.activeNavItem} onNavItemChanged={this.onNavItemChanged}/>
-                <Main activeItem={this.state.activeNavItem}/>
+                <Header activePage={this.state.activePage} onPageChanged={this.onNavItemChanged}/>
+                <Main activePage={this.state.activePage}/>
             </div>
         );
     }

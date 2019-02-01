@@ -3,17 +3,17 @@ import './header.scss';
 import {Menu} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
-type Props = { activeItem: string, onNavItemChanged: Function };
+type Props = { activePage: string, onPageChanged: Function };
 type State = {};
 export default class Header extends Component<Props, State> {
 
     handleItemClick = (event: React.MouseEvent<HTMLElement>, {name}: any) => {
-        this.props.onNavItemChanged(name);
+        this.props.onPageChanged(name);
     };
 
 
     render() {
-        const {activeItem} = this.props;
+        const {activePage} = this.props;
         const navItems = ['home', 'school', 'teacher', 'student', 'subject'];
         const navColor = 'violet';
 
@@ -24,7 +24,7 @@ export default class Header extends Component<Props, State> {
                         <Link to={`/${item}`} key={item}>
                             <Menu.Item
                                 name={item}
-                                active={activeItem === item}
+                                active={activePage === item}
                                 onClick={this.handleItemClick}
                                 color={navColor}
                             />

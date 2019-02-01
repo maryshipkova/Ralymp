@@ -46,11 +46,11 @@ export default class Rating extends Component<Props, State> {
                     </h2>
                 </div>
                 <div className="Rating-Results">
-                    {!results ? loader:
+                    {!results ? loader :
                         <Table celled striped>
-                        {page === 'student' && <Student students = {results}/>}
-                        {page === 'teacher' && <Teacher teachers = {results}/>}
-                    </Table>
+                            {page === 'student' && <Student students={results}/>}
+                            {page === 'teacher' && <Teacher teachers={results}/>}
+                        </Table>
                     }
                 </div>
             </section>
