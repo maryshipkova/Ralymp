@@ -1,5 +1,9 @@
 export interface IStudent {
-    studentName:string,
+    studentName: string,
     schoolTitle: string,
-    participation: Object[]
+    participation: {
+        subjectName: string,
+        place: string,
+        year: string
+    }[]
 }

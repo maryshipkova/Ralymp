@@ -1,5 +1,10 @@
 export interface ITeacher {
-    teacherName:string,
+    teacherName: string,
     schoolTitle: string,
-    participation: Object[]
+    participations: {
+        studentName: string,
+        subjectName: string,
+        place: string,
+        year: string
+    }[]
 }

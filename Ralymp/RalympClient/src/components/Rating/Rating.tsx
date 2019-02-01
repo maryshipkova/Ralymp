@@ -5,6 +5,7 @@ import Student from "./rates/Student";
 import Teacher from "./rates/Teacher";
 import {ITeacher} from "../../models/Teacher";
 import {IStudent} from "../../models/Student";
+import {Table} from 'semantic-ui-react'
 
 type Props = { page: string };
 type State = { results: ITeacher | IStudent | null };
@@ -36,6 +37,7 @@ export default class Rating extends Component<Props, State> {
         const {page} = this.props;
         const {results} = this.state;
         const loader = <Loader active inline='centered'/>;
+
         return (
 
             <section className="Rating">
@@ -45,8 +47,10 @@ export default class Rating extends Component<Props, State> {
                 </div>
                 <div className="Rating-Results">
                     {!results ? loader:
-                        (page === 'student' && <Student students = {results}/> ||
-                        page === 'teacher' && <Teacher teachers = {results}/>)
+                        <Table celled striped>
+                        {page === 'student' && <Student students = {results}/>}
+                        {page === 'teacher' && <Teacher teachers = {results}/>}
+                    </Table>
                     }
                 </div>
             </section>
