@@ -16,5 +16,6 @@ namespace Ralymp.DataAccessLayer
         public DbSet<Student> Student { get; set; }
         public DbSet<Subject> Subject { get; set; }
         public DbSet<Teacher> Teacher { get; set; }
+        public DbSet<YearInfo> YearInfo { get; set; }
     }
 }

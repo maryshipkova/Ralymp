@@ -5,12 +5,12 @@ using Ralymp.Models.InterimTypes;
 
 namespace Ralymp.ExcelParser
 {
-    public class DatabaseInfoGenerator
+    public class ModelsAggregator
     {
         private readonly IdentifierGenerator _idGenerator;
         private readonly List<Participation> _participations;
 
-        public DatabaseInfoGenerator()
+        public ModelsAggregator()
         {
             _idGenerator = new IdentifierGenerator();
             _participations = new List<Participation>();
@@ -24,9 +24,10 @@ namespace Ralymp.ExcelParser
 
         private void AddParticipation(List<ParticipationRow> rows, int yearId, OlympLevel level)
         {
-            var id = 1;
+            int id = _participations.Count;
             foreach (ParticipationRow row in rows)
             {
+                id++;
                 var participation = new Participation
                 {
                     Subject = new Subject {Id = _idGenerator.SubjectsId[row.Subject]},
@@ -39,7 +40,6 @@ namespace Ralymp.ExcelParser
                 };
 
                 _participations.Add(participation);
-                id++;
             }
         }
 
@@ -67,7 +67,7 @@ namespace Ralymp.ExcelParser
                 .StudentsId
                 .Select(v => new Student
                 {
-                    FirstName = v.Key,
+                    StudentName = v.Key,
                     Id = v.Value
                 })
                 .ToList();
@@ -85,7 +85,7 @@ namespace Ralymp.ExcelParser
         {
             return _idGenerator
                 .TeachersId
-                .Select(v => new Teacher {FirstName = v.Key, Id = v.Value})
+                .Select(v => new Teacher {Name = v.Key, Id = v.Value})
                 .ToList();
         }
 
