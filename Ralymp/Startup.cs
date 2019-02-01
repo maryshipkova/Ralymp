@@ -43,9 +43,7 @@ namespace Ralymp
                 configuration.RootPath = "ClientApp/build";
             });
 
-            string connection =
-                "place_for_connection_string"
-                ;
+            string connection = Configuration.GetConnectionString("ralymp-data");
             services.AddDbContext<RalympDbContext>(options => options.UseSqlServer(connection));
 
             services.AddSwaggerGen(configuration =>
