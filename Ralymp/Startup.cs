@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ralymp.DataAccessLayer;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Ralymp
@@ -41,7 +43,10 @@ namespace Ralymp
                 configuration.RootPath = "ClientApp/build";
             });
 
-            //services.AddDbContext<RalympDbContext>();
+            string connection =
+                "place_for_connection_string"
+                ;
+            services.AddDbContext<RalympDbContext>(options => options.UseSqlServer(connection));
 
             services.AddSwaggerGen(configuration =>
             {
