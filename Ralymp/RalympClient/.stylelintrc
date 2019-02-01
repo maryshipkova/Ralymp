@@ -1,0 +1,26 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "indentation": 4,
+    "color-hex-case": "upper",
+    "color-no-invalid-hex": true,
+    "comment-no-empty": true,
+    "number-leading-zero": "always",
+    "no-empty-source": null,
+    "no-invalid-double-slash-comments": null,
+    "selector-max-id": 0,
+    "selector-max-type": 1,
+    "font-family-no-missing-generic-family-keyword": null,
+    "selector-no-vendor-prefix": true,
+    "selector-type-no-unknown": true,
+    "string-quotes": "double",
+    "order/order": [
+      "custom-properties",
+      "declarations"
+    ],
+    "order/properties-alphabetical-order": true
+  }
+}

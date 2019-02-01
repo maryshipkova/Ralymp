@@ -1,0 +1,4 @@
+.Main{
+  display: grid;
+  grid-template-columns: minmax(.5rem, 2rem) 1fr minmax(.5rem, 2rem);
+}
