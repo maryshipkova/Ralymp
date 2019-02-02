@@ -68,7 +68,11 @@ namespace Ralymp.ExcelParser
                 .Select(v => new Student
                 {
                     StudentName = v.Key,
-                    Id = v.Value
+                    Id = v.Value,
+                    School = new School
+                    {
+                        Id = _idGenerator.StudentSchool[v.Key]
+                    }
                 })
                 .ToList();
         }
