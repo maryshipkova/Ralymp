@@ -10,9 +10,9 @@ namespace Ralymp.Controllers
     {
         private readonly IStudentProfileService _studentProfileService;
 
-        public StudentProfileController()
+        public StudentProfileController(IStudentProfileService studentProfileService)
         {
-            _studentProfileService = new StudentProfileService();
+            _studentProfileService = studentProfileService;
         }
 
         [HttpGet("[action]")]

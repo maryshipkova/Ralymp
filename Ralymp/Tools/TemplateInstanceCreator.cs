@@ -90,7 +90,7 @@ namespace Ralymp.Tools
             return Enumerable.Range(0, count)
                 .Select(_ => new StudentParticipation
                 {
-                    Place = Random.Next().ToString(),
+                    Place = Random.Next(),
                     SubjectName = CreateRandomString(),
                     Year = CreateRandomString()
                 })

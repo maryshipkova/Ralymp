@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ralymp.DataAccessLayer;
+using Ralymp.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Ralymp
@@ -43,6 +44,8 @@ namespace Ralymp
 
             string connection = Configuration.GetConnectionString("ralymp-data");
             services.AddDbContext<RalympDbContext>(options => options.UseSqlServer(connection));
+
+            services.AddScoped<IStudentProfileService, StudentProfileService>();
 
             services.AddSwaggerGen(configuration =>
             {
