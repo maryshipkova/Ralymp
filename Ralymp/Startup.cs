@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ralymp.DataAccessLayer;
+using Ralymp.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Ralymp
@@ -23,7 +24,6 @@ namespace Ralymp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             //TODO: Temp fix for CORS
@@ -37,14 +37,15 @@ namespace Ralymp
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/build";
+                configuration.RootPath = "RalympClient/build";
             });
 
             string connection = Configuration.GetConnectionString("ralymp-data");
             services.AddDbContext<RalympDbContext>(options => options.UseSqlServer(connection));
+
+            services.AddScoped<IStudentProfileService, StudentProfileService>();
 
             services.AddSwaggerGen(configuration =>
             {
@@ -52,7 +53,6 @@ namespace Ralymp
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             //TODO: Temp fix for CORS
@@ -126,7 +126,7 @@ namespace Ralymp
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "RalympClient";
 
                 if (env.IsDevelopment())
                 {

@@ -1,0 +1,20 @@
+{
+  "parser": "babel-eslint",
+  "rules": {
+    "semi": [
+      2,
+      "always"
+    ],
+    "indent": [
+      "warn",
+      4,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "quotes": [
+      "warn",
+      "single"
+    ]
+  }
+}
