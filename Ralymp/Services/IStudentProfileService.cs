@@ -1,4 +1,5 @@
-﻿using Ralymp.Models.ResponseTypes;
+﻿using System.Collections.Generic;
+using Ralymp.Models.ResponseTypes;
 
 namespace Ralymp.Services
 {
@@ -6,6 +7,6 @@ namespace Ralymp.Services
     {
         StudentProfileResponse Find(int id);
         StudentProfileResponse GetRandom();
-        StudentProfileResponse FindBySurname(string surname);
+        List<StudentProfileResponse> FindByString(string substring);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Ralymp.Models.ResponseTypes;
 using Ralymp.Services;
@@ -18,65 +19,39 @@ namespace Ralymp.Controllers
         [HttpGet("[action]")]
         public ActionResult<StudentProfileResponse> GetRandomProfile()
         {
-            try
-            {
-                StudentProfileResponse response = _studentProfileService.GetRandom();
-                return Ok(response);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            StudentProfileResponse response = _studentProfileService.GetRandom();
+            return Ok(response);
         }
 
         [HttpGet("[action]")]
         public ActionResult<StudentProfileResponse> Find(int? id)
         {
-            try
+            if (id == null)
             {
-                if (id == null)
-                {
-                    return BadRequest($"Missed {nameof(id)} argument");
-                }
-
-                StudentProfileResponse response = _studentProfileService.Find(id.Value);
-
-                if (response == null)
-                {
-                    return NotFound($"Can't find student with id={id}");
-                }
-
-                return Ok(response);
+                return BadRequest($"Missed {nameof(id)} argument");
             }
-            catch (Exception e)
+
+            StudentProfileResponse response = _studentProfileService.Find(id.Value);
+
+            if (response == null)
             {
-                return BadRequest(e.Message);
+                return NotFound($"Can't find student with id={id}");
             }
+
+            return Ok(response);
         }
 
         [HttpGet("[action]")]
-        public ActionResult<StudentProfileResponse> FindByUsername(string username)
+        public ActionResult<List<StudentProfileResponse>> FindByName(string name)
         {
-            try
+            if (name == null)
             {
-                if (username == null)
-                {
-                    return BadRequest($"Missed {nameof(username)} argument");
-                }
-
-                StudentProfileResponse response = _studentProfileService.FindBySurname(username);
-
-                if (response == null)
-                {
-                    return NotFound($"Can't find student with id={username}");
-                }
-
-                return Ok(response);
+                return BadRequest($"Missed {nameof(name)} argument");
             }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+
+            List<StudentProfileResponse> response = _studentProfileService.FindByString(name);
+
+            return Ok(response);
         }
     }
 }

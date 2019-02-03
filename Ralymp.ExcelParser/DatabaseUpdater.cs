@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Ralymp.DataAccessLayer;
 
@@ -26,6 +26,7 @@ namespace Ralymp.ExcelParser
             localContext.Subject.RemoveRange(localContext.Subject);
             localContext.Student.RemoveRange(localContext.Student);
             localContext.School.RemoveRange(localContext.School);
+            localContext.YearInfo.RemoveRange(localContext.YearInfo);
             localContext.SaveChanges();
         }
 

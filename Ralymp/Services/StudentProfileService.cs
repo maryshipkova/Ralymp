@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Ralymp.DataAccessLayer;
 using Ralymp.Models.DatabaseTypes;
@@ -19,40 +19,28 @@ namespace Ralymp.Services
 
         public StudentProfileResponse Find(int id)
         {
-            Student student = _dbContext.Student.Find(id);
-            if (student == null)
-                return null;
+            Student student = _dbContext
+                .Student
+                .IncludeProperty()
+                .First(s => s.Id == id);
 
-            IQueryable<Participation> participationList = _dbContext
-                .Participations
-                .Where(p => p.Student.Id == id);
-
-            return new StudentProfileResponse()
-            {
-                Participation = participationList
-                    .Select(p => new StudentParticipation
-                    {
-                        Place = p.Place,
-                        SubjectName = p.Subject.Title,
-                        Year = p.YearInfo.FullTitle
-                    })
-                    .ToArray(),
-                StudentName = student.StudentName,
-                //TODO: Fix, task AB#23
-                //SchoolTitle = student.School.Title,
-                StudentId = student.Id
-            };
+            return student == null ? null : new StudentProfileResponse(student);
         }
 
         public StudentProfileResponse GetRandom()
         {
-            StudentProfileResponse response = TemplateInstanceCreator.GetStudentProfileResponse();
-            return response;
+            return TemplateInstanceCreator.GetStudentProfileResponse();
         }
 
-        public StudentProfileResponse FindBySurname(string surname)
+        public List<StudentProfileResponse> FindByString(string substring)
         {
-            throw new NotImplementedException();
+            List<Student> students = _dbContext
+                .Student
+                .IncludeProperty()
+                .Where(s => s.StudentName.Contains(substring))
+                .ToList();
+
+            return students.Select(s => new StudentProfileResponse(s)).ToList();
         }
     }
 }

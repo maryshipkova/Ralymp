@@ -1,10 +1,7 @@
-using System;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,29 +24,17 @@ namespace Ralymp
         public void ConfigureServices(IServiceCollection services)
         {
             //TODO: Temp fix for CORS
-            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
-            {
-                builder
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-            }));
+            services.AddCors(CorsPolicySetup);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "RalympClient/build";
-            });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "RalympClient/build"; });
 
-            string connection = Configuration.GetConnectionString("ralymp-data");
-            services.AddDbContext<RalympDbContext>(options => options.UseSqlServer(connection));
-
-            services.AddScoped<IStudentProfileService, StudentProfileService>();
+            ConfigureDi(services, Configuration);
 
             services.AddSwaggerGen(configuration =>
             {
-                configuration.SwaggerDoc("v1", new Info { Title = "Testing API doc", Version = "v1" });
+                configuration.SwaggerDoc("v1", new Info {Title = "Testing API doc", Version = "v1"});
             });
         }
 
@@ -58,49 +43,17 @@ namespace Ralymp
             //TODO: Temp fix for CORS
             app.UseCors("CorsPolicy");
 
-            app.UseExceptionHandler(errorApp =>
+            //TODO: For testing in case of exceptions
+            app.UseDeveloperExceptionPage();
+            if (env.IsDevelopment() == false)
             {
-                errorApp.Run(async context =>
-                {
-                    var errorFeature = context.Features.Get<IExceptionHandlerFeature>();
-                    var exception = errorFeature.Error;
-
-                    var problemDetails = new ProblemDetails
-                    {
-                        Instance = $":error:{Guid.NewGuid()}"
-                    };
-
-                    if (exception is BadHttpRequestException badHttpRequestException)
-                    {
-                        problemDetails.Title = "Invalid request";
-                        problemDetails.Status = (int)typeof(BadHttpRequestException).GetProperty("StatusCode",
-                            BindingFlags.NonPublic | BindingFlags.Instance).GetValue(badHttpRequestException);
-                        problemDetails.Detail = badHttpRequestException.Message;
-                    }
-                    else
-                    {
-                        problemDetails.Title = "An unexpected error occurred!";
-                        problemDetails.Status = 500;
-                    }
-
-                    context.Response.StatusCode = problemDetails.Status.Value;
-                });
-            });
-
-            if (env.IsDevelopment())
-                {
-                //app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                //TODO: Fix 404
-                //app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles(new StaticFileOptions()
+
+            //app.UseSpaStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = context =>
                 {
@@ -108,10 +61,8 @@ namespace Ralymp
                     context.Context.Response.Headers.Add("Expires", "-1");
                 }
             });
-            //app.UseSpaStaticFiles();
 
             app.UseSwagger();
-
             app.UseSwaggerUI(configuration =>
             {
                 configuration.SwaggerEndpoint("/swagger/v1/swagger.json", "Testing API doc");
@@ -120,8 +71,8 @@ namespace Ralymp
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    "default",
+                    "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
@@ -130,9 +81,28 @@ namespace Ralymp
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseReactDevelopmentServer("start");
                 }
             });
+        }
+
+        private static void CorsPolicySetup(CorsOptions options)
+        {
+            options.AddPolicy("CorsPolicy", builder =>
+            {
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        }
+
+        private static void ConfigureDi(IServiceCollection services, IConfiguration configuration)
+        {
+            string connection = configuration.GetConnectionString("ralymp-data");
+            services.AddDbContext<RalympDbContext>(options => options.UseSqlServer(connection));
+
+            services.AddScoped<IStudentProfileService, StudentProfileService>();
         }
     }
 }
