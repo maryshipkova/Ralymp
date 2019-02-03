@@ -1,9 +1,13 @@
 html{
   font-size: 20px;
 }
+body{
+  background-color: #F7F7F7;
+}
 .App {
   display: grid;
   grid-template-rows: max-content max-content;
   grid-row-gap: 1rem;
+
 }
 

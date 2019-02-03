@@ -4,6 +4,14 @@ export interface IStudent {
     participation: {
         subjectName: string,
         place: string,
-        year: string
-    }[]
+        year: number
+    }[],
+    studentId?:number,
+    categoryRows?: {
+        title: string,
+        value: number
+    }[],
+    totalWinsOnMunicipalStage?: number,
+    totalWinsOnRegionStage?: number,
+    totalWinsOnCountryStage?: number
 }

@@ -1,23 +1,16 @@
 import React, {Component} from 'react';
 import './rating.scss';
-import {Loader} from 'semantic-ui-react'
+import {Loader} from 'semantic-ui-react';
 import Student from "./rates/Student";
 import Teacher from "./rates/Teacher";
 import {ITeacher} from "../../models/Teacher";
 import {IStudent} from "../../models/Student";
 import {Table} from 'semantic-ui-react'
+import {get} from "../../services/fetchService";
 
 type Props = { page: string };
 type State = { results: ITeacher | IStudent | null };
 export default class Rating extends Component<Props, State> {
-    baseUrl = 'https://ralymp.azurewebsites.net/api';
-    params: Object = {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        }
-    };
     state = {results: null};
 
     formatRate(page: string) {
@@ -25,8 +18,7 @@ export default class Rating extends Component<Props, State> {
     }
 
     componentWillMount() {
-        fetch(`${this.baseUrl}/${this.formatRate(this.props.page)}/GetRandomResultList`, this.params)
-            .then((resp) => resp.json())
+        get(`${this.formatRate(this.props.page)}/GetRandomResultList`)
             .then((resp) => {
                 this.setState({results: resp})
             })
@@ -42,7 +34,7 @@ export default class Rating extends Component<Props, State> {
 
             <section className="Rating">
                 <div className="Rating-Header">
-                    <h2 className='Rating-Heading'>{`${page} rate`.toUpperCase()}
+                    <h2 className='Rating-Heading'>{`${page} rate`}
                     </h2>
                 </div>
                 <div className="Rating-Results">

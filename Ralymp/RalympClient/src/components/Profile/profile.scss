@@ -1,0 +1,15 @@
+.Profile.card {
+  width: 80%;
+  margin: auto;
+}
+
+.Profile {
+  &-Content {
+    display: flex;
+    justify-content: space-between;
+    min-height: 10rem;
+  }
+  &-Header {
+    margin-bottom: .5rem;
+  }
+}

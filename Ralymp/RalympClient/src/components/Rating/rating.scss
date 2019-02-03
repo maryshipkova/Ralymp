@@ -1,9 +1,8 @@
 .Rating{
-  grid-column: 2;
-  //background-color: rebeccapurple;
   height: 80vh;
   &-Header{
     margin-bottom: .8rem;
+    text-transform: uppercase;
   }
   &-TableData{
     max-height: 4.5rem;
