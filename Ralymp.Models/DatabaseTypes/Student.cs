@@ -1,4 +1,7 @@
-﻿namespace Ralymp.Models.DatabaseTypes
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace Ralymp.Models.DatabaseTypes
 {
     public class Student
     {
@@ -7,5 +10,7 @@
         public string StudentName { get; set; }
         public int GraduationYear { get; set; }
         public School School { get; set; }
+
+        public ICollection<Participation> ParticipationList { get; set; }
     }
 }
