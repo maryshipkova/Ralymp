@@ -1,7 +1,8 @@
 export interface ITeacher {
-    teacherName: string,
+    name: string,
     schoolTitle: string,
-    participations: {
+    participationList: {
+        id:number,
         studentName: string,
         subjectName: string,
         place: string,

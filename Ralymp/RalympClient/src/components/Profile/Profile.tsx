@@ -31,7 +31,7 @@ export default class Profile extends Component<Props, State> {
                 <Card className='Profile'>
                     <Card.Content className='Profile-Content'>
                         <div className="Profile-Info">
-                            <Card.Header className="Profile-Header"><h4>{student.studentName}</h4></Card.Header>
+                            <Card.Header className="Profile-Header"><h4>{student.name}</h4></Card.Header>
                             <Card.Description>
                                 {student.schoolTitle}
                             </Card.Description>

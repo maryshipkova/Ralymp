@@ -1,12 +1,13 @@
 export interface IStudent {
-    studentName: string,
+    name: string,
     schoolTitle: string,
-    participation: {
+    participationList: {
+        id:number,
         subjectName: string,
         place: string,
         year: number
     }[],
-    studentId?:number,
+    id?:number,
     categoryRows?: {
         title: string,
         value: number

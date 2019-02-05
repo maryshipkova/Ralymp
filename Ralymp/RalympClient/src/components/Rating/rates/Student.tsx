@@ -18,8 +18,8 @@ export default class Student extends Component<Props, State> {
                 </Table.Header>
                 <Table.Body>
                     {students.map((student: IStudent) =>
-                        <Table.Row key={student.studentName}>
-                            <Table.Cell><div className='Rating-TableData'>{student.studentName}</div></Table.Cell>
+                        <Table.Row key={student.name}>
+                            <Table.Cell><div className='Rating-TableData'>{student.name}</div></Table.Cell>
                             <Table.Cell><div className='Rating-TableData'>{student.schoolTitle}</div></Table.Cell>
                             <Table.Cell>
                                 <div className='Rating-TableData'>
